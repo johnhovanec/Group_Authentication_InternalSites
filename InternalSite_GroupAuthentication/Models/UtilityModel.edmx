@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UtilityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblUtility_Access">
+          <Key>
+            <PropertyRef Name="RestrictedPageID" />
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="RestrictedPageID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="spUtility_GetLDAPGroupsForPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spUtility_GetLDAPIsAuthorized" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LdapUsername" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUtility_GetLDAPUserGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LdapUsername" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUtility_GetPageURL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="UtilityModelStoreContainer">
+          <EntitySet Name="tblUtility_Access" EntityType="Self.tblUtility_Access" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UtilityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblUtility_Access">
+          <Key>
+            <PropertyRef Name="RestrictedPageID" />
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="RestrictedPageID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="UtilityEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblUtility_Access" EntityType="Self.tblUtility_Access" />
+          <FunctionImport Name="spUtility_GetLDAPGroupsForPage" ReturnType="Collection(Int32)">
+          <Parameter Name="PageName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUtility_GetLDAPIsAuthorized" ReturnType="Collection(String)">
+            <Parameter Name="LdapUsername" Mode="In" Type="String" />
+            <Parameter Name="PageName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUtility_GetLDAPUserGroups">
+          <Parameter Name="LdapUsername" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUtility_GetPageURL" ReturnType="Collection(String)">
+            <Parameter Name="PageName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UtilityModelStoreContainer" CdmEntityContainer="UtilityEntities1">
+          <EntitySetMapping Name="tblUtility_Access">
+            <EntityTypeMapping TypeName="UtilityModel.tblUtility_Access">
+              <MappingFragment StoreEntitySet="tblUtility_Access">
+                <ScalarProperty Name="RestrictedPageID" ColumnName="RestrictedPageID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spUtility_GetLDAPGroupsForPage" FunctionName="UtilityModel.Store.spUtility_GetLDAPGroupsForPage" />
+          <FunctionImportMapping FunctionImportName="spUtility_GetLDAPIsAuthorized" FunctionName="UtilityModel.Store.spUtility_GetLDAPIsAuthorized" />
+          <FunctionImportMapping FunctionImportName="spUtility_GetLDAPUserGroups" FunctionName="UtilityModel.Store.spUtility_GetLDAPUserGroups" />
+          <FunctionImportMapping FunctionImportName="spUtility_GetPageURL" FunctionName="UtilityModel.Store.spUtility_GetPageURL" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
